@@ -1,0 +1,79 @@
+@import url('https://fonts.font.im/css?family=Quicksand');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #FF8000;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) perspective(2000px);
+    height: 400px;
+    width: 300px;
+    background-color: #fff;
+    transform-style: preserve-3d;
+    box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.5), 0 20px 100px rgba(0, 0, 0, 0.5);
+}
+
+.content:hover {
+    transform: translate(-50%, -50%) perspective(2000px) rotate(-10deg);
+    box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5), 0 10px 100px rgba(0, 0, 0, 0.5);
+}
+
+.content::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #DBA901;
+    /* transform-origin可以改变被转换元素的位置，但必须与 transform 属性一同使用 */
+    /* 这里元素被2D倾斜转换了，但是是以元素中心点转换，所以倾斜后左侧会突出一块，所以需要定义下以什么位置进行转换 */
+    transform-origin: bottom;
+    /* skew()属性的坐标轴是垂直方向是X轴，水平方向才是Y轴，具体效果只需要记住设置了哪个轴那么那个轴的长度就会被拉伸，X轴逆时针旋转，Y轴顺时针旋转 */
+    transform: skewX(-45deg);
+}
+
+.content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 5px;
+    height: 100%;
+    background: #FFBF00;
+    transform-origin: left;
+    transform: skewY(-45deg);
+}
+
+.imgBox {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-origin: left;
+    transition: 1s cubic-bezier(.15, 1.7, .84, .58);
+}
+
+.content:hover .imgBox {
+    transform: rotateY(-135deg);
+}
+
+.details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* z-index必须在定位元素（position:relative/absolute/fixed/sticky）上才有效 */
+    z-index: -1;
+    padding: 20px;
+    box-sizing: border-box;
+    user-select: none;
+}
